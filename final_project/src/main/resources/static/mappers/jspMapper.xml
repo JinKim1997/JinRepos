@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ac.inha.mvc.mapper.JspMapper">
+	<select id="boardList" resultType="hashMap">
+		SELECT 
+		ID as id, SUBJECT as subject , GRADE as grade, USE_YN useYn, DESCRIPTION description
+		,REG_USER regUser 
+		FROM SAMPLE
+	</select>
+	<insert id="regitSubject" parameterType="kr.ac.inha.mvc.dto.SampleDto">
+		INSERT INTO `SAMPLE` ( `SUBJECT`, `GRADE`, `USE_YN`, `DESCRIPTION`, `REG_USER`) 
+		VALUES ( #{subject}, #{grade}, #{useYn}, #{description}, #{regUser})	
+	</insert>
+	<select id="boardDetail" parameterType="String" resultType="map">
+		SELECT 
+		ID as id, SUBJECT as subject , GRADE as grade, USE_YN useYn, DESCRIPTION description
+		,REG_USER regUser
+		 FROM SAMPLE 
+		WHERE ID = #{value} 
+	</select>
+	<update id="modifySubject" parameterType="hashMap" >
+		UPDATE SAMPLE
+		SET
+			SUBJECT = #{subject},
+			GRADE = #{grade},
+			USE_YN = #{useYn},
+			DESCRIPTION = #{description},
+			REG_USER = #{regUser}
+		WHERE ID = #{id}
+	
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		 SAMPLE
+		 WHERE
+		 ID = #{value}
+	</delete>
+	
+</mapper>
